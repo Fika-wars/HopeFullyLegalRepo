@@ -18,4 +18,5 @@
         completions."
     </string>
     <string name="action_post">Post to server</string>
+    <string name="name">Name</string>
 </resources>

@@ -36,11 +36,17 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -86,18 +92,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin(true);
-                    return true;
-                }
-                return false;
-            }
-        });
-
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -124,35 +118,46 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         String url ="http://10.0.0.81:3000";
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d(TAG, "onResponse: "+ response);
+        Map<String, String> postParam= new HashMap<String, String>();
+        postParam.put("operator", "userUpdate");
+        postParam.put("userName", "playerI");
+        postParam.put("region", "A");
 
+        JSONObject jsonBody = new JSONObject(postParam);
+
+
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                url, jsonBody,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, response.toString());
                     }
                 }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "onErrorResponse: "+ error);
+                Log.d(TAG, "onErrorResponse: " + error.getMessage());
             }
         }){
+
+            /**
+             * Passing some request headers
+             * */
             @Override
-            public byte[] getBody() throws AuthFailureError {
-                String your_string_json = "{\n" +
-                        "   \"operator\": \"userUpdate\"\n" +
-                        "   \"update\": {\n" +
-                        "        \"userName\": \"playerJ\",\n" +
-                        "       \"region\": \"A\"\n" +
-                        "   }\n" +
-                        "}";
-                Log.d(TAG, "getBody: " + your_string_json);
-                return your_string_json.getBytes();
-            }
-        };
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }};
+
+        Log.d(TAG, "post: " + jsonObjReq);
+
+        jsonObjReq.setTag(TAG);
         // Add the request to the RequestQueue.
-        mQueue.add(stringRequest);
+        mQueue.add(jsonObjReq);
     }
 
     private void populateAutoComplete() {
