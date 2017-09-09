@@ -29,13 +29,13 @@ public class SimpleMapExampleApplication extends MultiDexApplication {
             Log.e("ExampleApplication", "Error while loading BuildingInfo", e);
         }
 
-        MockPositioningProvider mockLocationProvider =
-                new MyMockPositioningProvider(buildingInfo);
+       /* MockPositioningProvider mockLocationProvider =
+                new MyMockPositioningProvider(buildingInfo); */
 
         stepInsideSdkManager = new StepInsideSdkManager.Builder(getApplicationContext())
                 .withApiKey(apiKey)
                 .withMapKey(mapKey)
-                .withMockPositioningProvider(mockLocationProvider)
+                //.withMockPositioningProvider(mockLocationProvider)
                 .withLogLevel(Log.VERBOSE)
                 .build();
 
