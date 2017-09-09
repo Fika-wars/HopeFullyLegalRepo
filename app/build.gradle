@@ -17,6 +17,8 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.volley:volley:1.0.0'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':simple-map-view')
+    compile project(path: ':simple-map-view')
 }
 
 android {
