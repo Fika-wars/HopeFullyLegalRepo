@@ -1,8 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/HopeFullyLegalRepo.iml
-.idea/modules/
+.idea/
+.gradle/
 .gradle
-.idea
 /app/build
 local.properties
 /build
