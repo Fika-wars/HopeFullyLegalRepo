@@ -12,4 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/latitudeTextView"
+        android:text="[latitude]"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/longitudeTextView"
+        android:text="[longitude]"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/headingTextView"
+        android:text="[heading]"/>
 </RelativeLayout>

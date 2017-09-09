@@ -10,20 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import com.senion.examples.simplemapview.MapView;
 import com.senion.examples.simplemapview.buildinginfo.BuildingInfo;
-import com.senion.stepinside.sdk.Heading;
-import com.senion.stepinside.sdk.Location;
-import com.senion.stepinside.sdk.LocationAvailability;
-import com.senion.stepinside.sdk.PositioningApi;
-import com.senion.stepinside.sdk.StepInsideSdk;
-import com.senion.stepinside.sdk.StepInsideSdkError;
-import com.senion.stepinside.sdk.StepInsideSdkHandle;
-import com.senion.stepinside.sdk.StepInsideSdkManager;
-import com.senion.stepinside.sdk.Subscription;
+import com.senion.stepinside.sdk.*;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    //Create text classes to write
+    private TextView latitudeTextView;
+    private TextView longitudeTextView;
+    private TextView headingTextView;
 
     private StepInsideSdkManager sdkManager;
     private StepInsideSdkHandle stepInsideSdk;
@@ -32,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Subscription statusSubscription;
 
     private MapView mapView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("MainActivity", "Error while loading BuildingInfo", e);
         }
+
+        latitudeTextView = (TextView)findViewById(R.id.latitudeTextView);
+        longitudeTextView = (TextView)findViewById(R.id.longitudeTextView);
+        headingTextView = (TextView)findViewById(R.id.headingTextView);
 
         sdkManager = ((SimpleMapExampleApplication)getApplication()).getStepInsideSdkManager();
 
@@ -74,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
             stepInsideSdk.stop();
             stepInsideSdk.detach();
         }
+    }
+
+
+    private void updateHeadingTextView(@NonNull Heading heading) {
+        headingTextView.setText(String.format("Heading: %s", heading.getAngle()));
+    }
+
+    private void updateLocationTextViews(@NonNull Location location) {
+        latitudeTextView.setText(String.format("Latitude: %s", location.getLatitude()));
+        longitudeTextView.setText(String.format("Longitude: %s", location.getLongitude()));
     }
 
     private void onAttachedToSdk(@NonNull StepInsideSdkHandle sdk) {
