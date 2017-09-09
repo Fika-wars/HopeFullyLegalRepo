@@ -2,6 +2,7 @@ package geofika.senionhack;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -17,6 +18,8 @@ import com.senion.examples.simplemapview.buildinginfo.BuildingInfo;
 import com.senion.stepinside.sdk.*;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private Subscription positioningSubscription;
     private Subscription statusSubscription;
 
+    private User mUser = null;
+    private JsonRequest mJsonRequest = null;
+
     private MapView mapView;
 
 
@@ -43,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+
+        mUser = (User)bundle.getSerializable("User");
+
+        mJsonRequest = new JsonRequest(this,(String)bundle.get("Url"));
 
         mapView = (MapView)findViewById(R.id.map_view);
 
@@ -108,43 +121,44 @@ public class MainActivity extends AppCompatActivity {
         geoMessengerApi.addListener(geoMessengerListener);
     }
 
+    private Timer mTimer;
     private GeoMessengerApi.Listener geoMessengerListener = new GeoMessengerApi.Listener()
     {
         @Override
         public void onZoneEntered(@NonNull GeoMessengerZone zone) {
             String zoneText = String.format("Entered zone %s", zone.getName());
-            Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_LONG).show();
 
-            //Bad solution
-            try
-            {
-                Thread.sleep(500);
-            }
-            catch(InterruptedException ex)
-            {
-                Thread.currentThread().interrupt();
-            }
+            mUser.setZone(zone.getId());
 
-
+            mTimer = new Timer();
+            mTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mJsonRequest.makeRequest(mUser);
+                        }
+                    });
+                }
+            }, 0, 3000);
+            
+            
             List<GeoMessengerMessage> L = zone.getMessages();
             String ZoneText = String.format("%s", L.get(0).getPayload());
             Toast.makeText(MainActivity.this, ZoneText, Toast.LENGTH_LONG).show();
-
-            //Another bad solution
-            try
-            {
-                Thread.sleep(1000);
-            }
-            catch(InterruptedException ex)
-            {
-                Thread.currentThread().interrupt();
-            }
+            
         }
 
         @Override
         public void onZoneExited(@NonNull GeoMessengerZone zone) {
             String zoneText = String.format("Exited zone %s", zone.getName());
-            Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_LONG).show();
+
+            if (mTimer != null){
+                mTimer.cancel();
+            }
         }
     };
 
