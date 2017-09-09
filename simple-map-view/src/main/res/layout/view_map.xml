@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="#ffff00" >
+
+    <com.senion.examples.simplemapview.MapImageView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/compass_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/compass_100x100" >
+        </Button>
+
+        <Button
+                android:id="@+id/floor_up_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/map_floor_up_button" />
+
+        <Button
+                android:id="@+id/floor_down_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/floor_up_button"
+                android:background="@drawable/map_floor_down_button" />
+
+        <Button
+            android:id="@+id/center_position_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="16dp"
+            android:background="@drawable/map_cent_rot_button" >
+        </Button>
+
+        <ImageView
+            android:id="@+id/sl_logo_view"
+            android:layout_width="100dp"
+            android:layout_height="44dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="-4dp"
+            android:layout_marginBottom="-8dp"
+            android:src="@drawable/sllogo_425" />
+    </RelativeLayout>
+
+</merge>

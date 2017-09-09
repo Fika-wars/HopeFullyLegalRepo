@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_selected="true">
+        <layer-list>
+            <item>
+                <shape>
+            		<solid android:color="@color/map_button_selected" />
+					<stroke android:width="0.5dp" android:color="@color/map_button_stroke" />
+					<corners android:radius="30dp" />
+					<padding android:bottom="14dp" android:left="14dp" android:right="14dp" android:top="14dp" />
+        		</shape>
+            </item>
+            <item android:drawable="@drawable/center_button_inactive_grey" />
+        </layer-list>
+    </item>
+    
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape>
+            		<solid android:color="@color/map_button_highlighted" />
+					<stroke android:width="0.5dp" android:color="@color/map_button_stroke" />
+					<corners android:radius="30dp" />
+					<padding android:bottom="14dp" android:left="14dp" android:right="14dp" android:top="14dp" />
+        		</shape>
+            </item>
+            <item android:drawable="@drawable/center_button_inactive_grey" />
+        </layer-list>
+    </item>
+    
+    <item android:state_focused="true">
+        <layer-list>
+            <item>
+                <shape>
+            		<solid android:color="@color/map_button_highlighted" />
+            		<stroke android:width="0.5dp" android:color="@color/map_button_stroke" />
+            		<corners android:radius="30dp" />
+            		<padding android:bottom="14dp" android:left="14dp" android:right="14dp" android:top="14dp" />
+        		</shape>
+            </item>
+            <item android:drawable="@drawable/center_button_inactive_grey" />
+        </layer-list>
+    </item>
+    
+    <item>
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/map_button_normal" />
+            		<stroke android:width="0.5dp" android:color="@color/map_button_stroke" />
+            		<corners android:radius="30dp" />
+                <padding android:bottom="14dp" android:left="14dp" android:right="14dp" android:top="14dp" />
+        		</shape>
+            </item>
+            <item android:drawable="@drawable/center_button_inactive_grey" />
+        </layer-list>
+	</item>
+
+</selector>
