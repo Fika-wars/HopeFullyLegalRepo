@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="black_overlay">#66000000</color>
+	
+	 <color name="black">#000000</color>
+    <color name="dark_grey">#555555</color>
+    <color name="light_grey">#AAAAAA</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#7F7F7F</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+    <color name="blue">#0000FF</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="magenta">#FF00FF</color>
+    <color name="orange">#FF7F00</color>
+    <color name="purple">#7F007F</color>
+    <color name="brown">#996633</color>
+    <color name="clear">#00000000</color>
+
+    <color name="sl_blue">#6AACDF</color>
+    <color name="sl_blue_2">#3494E0</color>
+
+    <color name="sl_turquoise">#5FD2D3</color>
+    <color name="sl_turquoise_2">#2FC5D5</color>
+
+    <color name="sl_yellow">#F8D17D</color>
+    <color name="sl_yellow_2">#F4C482</color>
+
+    <color name="sl_red">#FF816C</color>
+    <color name="sl_red_2">#FF5D71</color>
+
+    <color name="sl_green">#60D373</color>
+    <color name="sl_green_2">#2FC678</color>
+
+    <color name="sl_grey">#FAFAFA</color>
+
+    <color name="dialog_background">#FAFAFA</color>
+
+    <color name="map_button_selected">#DDDDDD</color>
+    <color name="map_button_highlighted">#CCCCCC</color>
+    <color name="map_button_normal">#FAFAFA</color>
+
+    <color name="map_button_stroke">#BBBBBB</color>
+
+    <color name="uncertainty_circle">#AAACDF</color>
+    <color name="location_unavailable_uncertainty_circle_stroke">#88000000</color>
+    <color name="location_unavailable_uncertainty_circle_fill">#33000000</color>
+    <color name="location_unavailable_position_fill">#A5A5A5</color>
+
+    <color name="map_button_default_background">#DDDDDD</color>
+    <color name="map_button_highlighted_background">#777777</color>
+    <color name="map_button_selected_background">#999999</color>
+    <color name="map_button_border">#333333</color>
+</resources>

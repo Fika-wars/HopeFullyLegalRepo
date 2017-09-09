@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_selected="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/map_button_default_background" />
+                    <stroke android:width="0.2dp" android:color="@color/map_button_border" />
+                    <corners
+                            android:topLeftRadius="0dp"
+                            android:topRightRadius="0dp"
+                            android:bottomLeftRadius="10dp"
+                            android:bottomRightRadius="10dp"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/floor_down" />
+        </layer-list>
+    </item>
+
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/map_button_default_background" />
+                    <stroke android:width="0.2dp" android:color="@color/map_button_border" />
+                    <corners
+                            android:topLeftRadius="0dp"
+                            android:topRightRadius="0dp"
+                            android:bottomLeftRadius="10dp"
+                            android:bottomRightRadius="10dp"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/floor_down" />
+        </layer-list>
+    </item>
+
+    <item android:state_focused="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/map_button_default_background" />
+                    <stroke android:width="0.2dp" android:color="@color/map_button_border" />
+                    <corners
+                            android:topLeftRadius="0dp"
+                            android:topRightRadius="0dp"
+                            android:bottomLeftRadius="10dp"
+                            android:bottomRightRadius="10dp"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/floor_down" />
+        </layer-list>
+    </item>
+
+    <item>
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/sl_grey" />
+                    <stroke android:width="0.2dp" android:color="@color/map_button_border" />
+                    <corners
+                            android:topLeftRadius="0dp"
+                            android:topRightRadius="0dp"
+                            android:bottomLeftRadius="10dp"
+                            android:bottomRightRadius="10dp"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/floor_down" />
+        </layer-list>
+    </item>
+
+</selector>
