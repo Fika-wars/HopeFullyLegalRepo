@@ -16,16 +16,22 @@ import com.senion.examples.simplemapview.MapView;
 import com.senion.examples.simplemapview.buildinginfo.BuildingInfo;
 import com.senion.stepinside.sdk.*;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    private StepInsideSdkManager sdkManager;
+    private StepInsideSdkHandle stepInsideSdk;
 
     //Create text classes to write
     private TextView latitudeTextView;
     private TextView longitudeTextView;
     private TextView headingTextView;
 
-    private StepInsideSdkManager sdkManager;
-    private StepInsideSdkHandle stepInsideSdk;
+    //Create geoMessenger
+    private GeoMessengerApi geoMessengerApi;
+
 
     private Subscription positioningSubscription;
     private Subscription statusSubscription;
@@ -97,7 +103,50 @@ public class MainActivity extends AppCompatActivity {
         statusSubscription = stepInsideSdk.addStatusListener(statusListener);
 
         stepInsideSdk.start();
+
+        geoMessengerApi = stepInsideSdk.geoMessenger();
+        geoMessengerApi.addListener(geoMessengerListener);
     }
+
+    private GeoMessengerApi.Listener geoMessengerListener = new GeoMessengerApi.Listener()
+    {
+        @Override
+        public void onZoneEntered(@NonNull GeoMessengerZone zone) {
+            String zoneText = String.format("Entered zone %s", zone.getName());
+            Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_SHORT).show();
+
+            //Bad solution
+            try
+            {
+                Thread.sleep(500);
+            }
+            catch(InterruptedException ex)
+            {
+                Thread.currentThread().interrupt();
+            }
+
+
+            List<GeoMessengerMessage> L = zone.getMessages();
+            String ZoneText = String.format("%s", L.get(0).getPayload());
+            Toast.makeText(MainActivity.this, ZoneText, Toast.LENGTH_LONG).show();
+
+            //Another bad solution
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch(InterruptedException ex)
+            {
+                Thread.currentThread().interrupt();
+            }
+        }
+
+        @Override
+        public void onZoneExited(@NonNull GeoMessengerZone zone) {
+            String zoneText = String.format("Exited zone %s", zone.getName());
+            Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private void updateHeading(@NonNull Heading heading) {
         mapView.setHeading(heading);
@@ -128,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
         public void onLocationUpdated(@NonNull Location location) {
             if (isDestroyed()) return;
 
+            updateLocationTextViews(location);
             updateLocation(location);
         }
 
@@ -135,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
         public void onHeadingUpdated(@NonNull Heading heading) {
             if (isDestroyed()) return;
 
+            updateHeadingTextView(heading);
             updateHeading(heading);
         }
 

@@ -36,6 +36,7 @@ public class SimpleMapExampleApplication extends MultiDexApplication {
                 .withApiKey(apiKey)
                 .withMapKey(mapKey)
                 //.withMockPositioningProvider(mockLocationProvider)
+                .enableGeoMessenger()
                 .withLogLevel(Log.VERBOSE)
                 .build();
 

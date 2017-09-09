@@ -10,24 +10,35 @@
     <com.senion.examples.simplemapview.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/headingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFF00"
+            android:text="[heading]"
+             />
+
+        <TextView
+            android:id="@+id/latitudeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFF00"
+            android:text="[latitude]"
+            android:textAlignment="viewStart"
+            android:layout_marginTop="36dp"/>
+
+        <TextView
+            android:id="@+id/longitudeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFF00"
+            android:text="[longitude]"
+            android:layout_marginTop="18dp" />
+    </com.senion.examples.simplemapview.MapView>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/latitudeTextView"
-        android:text="[latitude]"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/longitudeTextView"
-        android:text="[longitude]"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/headingTextView"
-        android:text="[heading]"/>
 </RelativeLayout>
