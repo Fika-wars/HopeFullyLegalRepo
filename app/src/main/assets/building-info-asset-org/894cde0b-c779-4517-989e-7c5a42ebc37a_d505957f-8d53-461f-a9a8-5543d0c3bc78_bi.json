@@ -1,0 +1,28 @@
+{
+  "mapInfo" : {
+    "name" : "Expoarena",
+    "dataDate" : "2017-09-08_16-53-51.939_UTC",
+    "venueId" : "98a779bf-5b7c-4d53-b7b3-d7bb9a32b0e1",
+    "mapId" : "894cde0b-c779-4517-989e-7c5a42ebc37a",
+    "mapVersionId" : "dfd39d48-9df5-499d-8e8b-8d1455585f29",
+    "versionName" : "20170908_1653"
+  },
+  "floors" : [ {
+    "floorName" : "Expoarena",
+    "floorNr" : 1,
+    "bitmapFilename" : "Expoarena_0.png",
+    "bitmapLocation" : {
+      "latitude" : 58.391606466532714,
+      "longitude" : 15.582200651311886
+    },
+    "bitmapOffset" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "bitmapOrientation" : -208.7807935660861,
+    "pixelsPerMeter" : 33.337013728741454,
+    "xMaxPixels" : 1500,
+    "yMaxPixels" : 703,
+    "floorId" : "1"
+  } ]
+}

@@ -37,7 +37,7 @@ public class MapView extends FrameLayout {
     private Button compassButton;
 
     private ArrayList<MapViewListener> listeners = new ArrayList<>();
-    private String highscoreTeam;
+    private String highscoreTeam = "";
     private String userTeam;
 
     public MapView(Context context) {
@@ -147,10 +147,22 @@ public class MapView extends FrameLayout {
             currentImage.recycle();
         }
 
-        currentImage = building.getBitmap(currentFloorId, 800, 800);
-        //currentImage =
 
-        //mapImageView.setSampleScale(currentImage.getSampleSize());
+        if(highscoreTeam.equals("red")) {
+            currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.redteam);
+        }
+        else if (highscoreTeam.equals("blue")){
+            currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.blueteam);
+        }
+        else if (highscoreTeam.equals("green")){
+            currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.greenteam);
+        }
+        else{
+            currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.noteam);
+        }
+
+
+        currentImage = Bitmap.createScaledBitmap(currentImage, 1500, 703, false);
         mapImageView.setPixelsPerMeter(((float)floorInfo.getPixelsPerMeter()));
         mapImageView.setImageBitmap(currentImage);
 
