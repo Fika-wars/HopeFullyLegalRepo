@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private String highScoreTeam = "";
     private TextView scoreTextView;
     private TextView teamTextView;
+    private Integer highScoreTeamScore;
+    private Integer myTeamScore;
 
 
     @Override
@@ -180,20 +182,29 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void updateHighscore() {
+        Log.d(TAG, "updateHighscore: ");
+        if (teamMap != null) {
+            mUser = mJsonRequest.getUser();
 
-        for (Map.Entry<String, Integer> entry : teamMap.entrySet())
-        {
-            if (entry.getValue() > highestValue){
-                if (!entry.getKey().equals(highScoreTeam)){
-                    highScoreTeam = entry.getKey();
-                    playSound();
+            for (Map.Entry<String, Integer> entry : teamMap.entrySet()) {
+
+                if (entry.getKey().equals(mUser.getTeamID())){
+                    myTeamScore = entry.getValue();
+                }
+                if (entry.getValue() > highestValue) {
+                        highScoreTeam = entry.getKey();
+                        highestValue = entry.getValue();
                 }
             }
+            scoreTextView.setText(String.format("User: %s, Score: %d, Team: %s, TeamScore: %d",
+                    mUser.getName(),
+                    mUser.getScore(),
+                    mUser.getTeamID(),
+                    myTeamScore));
+
+            teamTextView.setText(String.format("Leader Team: %s, score: %d", highScoreTeam, highestValue));
+
         }
-    }
-
-    private void playSound() {
-
     }
 /*
     //Spoof starts

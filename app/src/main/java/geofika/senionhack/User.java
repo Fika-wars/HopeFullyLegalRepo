@@ -13,6 +13,24 @@ public class User implements Serializable{
     private String mName = "";
     private String mZone = "";
     private String mTeam = "";
+    private String id = "";
+    private String teamID;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setTeamID(String teamID) {
+        this.teamID = teamID;
+    }
+
+    public String getTeamID() {
+        return teamID;
+    }
 
     private enum Team {
         RED, GREEN, BLUE
@@ -27,8 +45,8 @@ public class User implements Serializable{
     User(String name){
         this.mName = name;
 
-        String team = randomLetter().name();
-        this.mTeam = team;
+        //String team = randomLetter().name();
+        //this.mTeam = team;
     }
 
     public void setZone(String mZone) {
@@ -43,7 +61,6 @@ public class User implements Serializable{
         return mName;
     }
 
-    public String getTeam() { return  mTeam; }
     public void setScore(Integer score) {
         this.score = score;
     }

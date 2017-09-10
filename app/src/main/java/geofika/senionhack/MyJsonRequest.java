@@ -36,6 +36,7 @@ public class MyJsonRequest {
     private RequestQueue mQueue = null;
     private String mUrl = "";
     private HashMap<String,Integer> mTeamList = null;
+    private User mUser;
 
     MyJsonRequest(Context context, String url) {
 
@@ -50,6 +51,8 @@ public class MyJsonRequest {
 
     void makeRequest(final User user) {
 
+        mUser = user;
+
         // Instantiate the RequestQueue.
 
         final HashMap<String,Integer> teamList = new HashMap<String,Integer>();
@@ -58,7 +61,6 @@ public class MyJsonRequest {
         postParam.put("operator", "userUpdate");
         postParam.put("userName", user.getName());
         postParam.put("region", user.getZone());
-        postParam.put("team", user.getTeam());
 
         JSONObject jsonBody = new JSONObject(postParam);
 
@@ -79,6 +81,8 @@ public class MyJsonRequest {
 
                         if (jsonobject.getString("name").equals(user.getName())){
                             user.setScore(score);
+                            user.setId(jsonobject.getString("ID"));
+                            user.setTeamID(team);
                         }
 
 
@@ -89,12 +93,16 @@ public class MyJsonRequest {
                         }
 
 
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                }
 
+
+                }
+                Log.d(TAG, "onResponse: " + teamList);
                 mTeamList = teamList;
             }
         }, new Response.ErrorListener() {
@@ -109,6 +117,10 @@ public class MyJsonRequest {
         jsonObjReq.setTag(TAG);
         // Add the request to the RequestQueue.
         mQueue.add(jsonObjReq);
+    }
+
+    public User getUser() {
+        return mUser;
     }
 
 
