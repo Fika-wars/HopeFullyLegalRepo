@@ -23,7 +23,10 @@ public class MyMockPositioningProvider1 implements MockPositioningProvider {
 
     private int currentIndex = 0;
     private List<MockPositioningEvent> mockPositioningEvents = new ArrayList<>();
-    private long mockLocationIntervalMs = 5000;
+    private long mockLocationIntervalMs = 800;
+    private long mockLocktionInterval3  = 7000;
+    private long mockLocktionInterval2  = 300000;
+    private long mockLocktionInterval1  = 4000;
     private long mockHeadingIntervalMs = 300;
     private LocationSource mockLocationSource = new MyLocationSource();
 
@@ -45,28 +48,39 @@ public class MyMockPositioningProvider1 implements MockPositioningProvider {
         double offsetY = centerY / 5;
 
         FloorId floorId = new FloorId("1");
-
-        Location location = createLocation(floorInfo, centerX, centerY, floorId, 4.5);
+/*
+        Location location  = createLocation(floorInfo, centerX, centerY, floorId, 4.5);
         Location location2 = createLocation(floorInfo, centerX + offsetX, centerY, floorId, 2.5);
         Location location3 = createLocation(floorInfo, centerX + offsetX, centerY + offsetY, floorId, 3);
         Location location4 = createLocation(floorInfo, centerX, centerY + offsetY, floorId, 5.5);
+*/
 
-        float startHeading = 180;
-        Heading heading = new Heading(startHeading, new Date());
-        Heading heading2 = new Heading(startHeading - 90.0, new Date());
+        Location location1 = createLocation(floorInfo, 750, 3, floorId, 3.5);
+        Location location2 = createLocation(floorInfo, 850, 100, floorId, 3);
+        Location location3 = createLocation(floorInfo, 820, 200, floorId, 2.5);
+        Location location4 = createLocation(floorInfo, 815, 280, floorId, 2);
+        Location location5 = createLocation(floorInfo, 870, 283, floorId, 1.5);
+
+
+        float startHeading = 0;
+        Heading heading1 = new Heading(startHeading, new Date());
+        Heading heading2 = new Heading(startHeading + 10, new Date());
+
 
         List<MockPositioningEvent> mockPositioningEvents = new ArrayList<>();
 
         mockPositioningEvents.add(new MockLocationAvailabilityEvent(LocationAvailability.Available, 0));
-        mockPositioningEvents.add(new MockLocationEvent(location, mockLocationIntervalMs));
-        mockPositioningEvents.add(new MockHeadingEvent(heading, mockHeadingIntervalMs));
+        mockPositioningEvents.add(new MockLocationEvent(location1, mockLocationIntervalMs));
+        //mockPositioningEvents.add(new MockHeadingEvent(heading1, mockHeadingIntervalMs));
         mockPositioningEvents.add(new MockLocationEvent(location2, mockLocationIntervalMs));
-        mockPositioningEvents.add(new MockLocationEvent(location3, mockLocationIntervalMs));
-        mockPositioningEvents.add(new MockLocationAvailabilityEvent(LocationAvailability.NotAvailable, 0));
+        mockPositioningEvents.add(new MockLocationEvent(location3, mockLocktionInterval3));
+
+        //Kaffemaskin
         mockPositioningEvents.add(new MockLocationEvent(location4, mockLocationIntervalMs));
-        mockPositioningEvents.add(new MockHeadingEvent(heading, mockHeadingIntervalMs));
-        mockPositioningEvents.add(new MockLocationAvailabilityEvent(LocationAvailability.Available, 0));
-        mockPositioningEvents.add(new MockHeadingEvent(heading2, mockHeadingIntervalMs));
+
+        //Soffa
+        mockPositioningEvents.add(new MockLocationEvent(location5, mockLocktionInterval1));
+        mockPositioningEvents.add(new MockLocationEvent(location5, mockLocktionInterval2));
 
         return mockPositioningEvents;
     }

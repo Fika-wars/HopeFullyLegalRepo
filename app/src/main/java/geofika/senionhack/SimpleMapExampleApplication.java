@@ -29,13 +29,16 @@ public class SimpleMapExampleApplication extends MultiDexApplication {
             Log.e("ExampleApplication", "Error while loading BuildingInfo", e);
         }
 
-       /* MockPositioningProvider mockLocationProvider =
-                new MyMockPositioningProvider1(buildingInfo); */
+       MockPositioningProvider mockLocationProvider1 =
+                new MyMockPositioningProvider1(buildingInfo);
+
+        MockPositioningProvider mockLocationProvider2 =
+                new MyMockPositioningProvider2(buildingInfo);
 
         stepInsideSdkManager = new StepInsideSdkManager.Builder(getApplicationContext())
                 .withApiKey(apiKey)
                 .withMapKey(mapKey)
-                //.withMockPositioningProvider(mockLocationProvider)
+                .withMockPositioningProvider(mockLocationProvider2) //Choose mock dataset here
                 .enableGeoMessenger()
                 .withLogLevel(Log.VERBOSE)
                 .build();
