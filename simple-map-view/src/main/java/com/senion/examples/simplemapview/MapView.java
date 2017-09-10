@@ -147,7 +147,7 @@ public class MapView extends FrameLayout {
             currentImage.recycle();
         }
 
-
+        highscoreTeam = "blue";
         if(highscoreTeam.equals("red")) {
             currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.redteam);
         }
