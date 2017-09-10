@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     //Create geoMessenger
     private GeoMessengerApi geoMessengerApi;
 
-
     private Subscription positioningSubscription;
     private Subscription statusSubscription;
 
@@ -168,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-/*
+
     //Spoof starts
     private void spoof(String Zone, boolean start){
         mUser.setZone(Zone);
@@ -194,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
     }
     };
     //Spoof ends
-*/
 
     private void updateHeading(@NonNull Heading heading) {
         mapView.setHeading(heading);
@@ -260,7 +258,6 @@ public class MainActivity extends AppCompatActivity {
             if (isDestroyed()) return;
 
             onAttachedToSdk(sdk);
-
         }
     };
 }

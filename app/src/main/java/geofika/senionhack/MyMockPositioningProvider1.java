@@ -99,7 +99,6 @@ public class MyMockPositioningProvider1 implements MockPositioningProvider {
         if (currentIndex >= mockPositioningEvents.size()) {
             currentIndex = 0;
         }
-
         MockPositioningEvent event = mockPositioningEvents.get(currentIndex);
         currentIndex++;
 
