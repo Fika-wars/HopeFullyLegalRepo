@@ -83,7 +83,7 @@ public class MyJsonRequest {
                         String team = jsonobject.getString("teamID");
                         Integer score = Integer.parseInt(jsonobject.getString("score"));
 
-                        if (jsonobject.getString("name").equals(user.getName())){
+                        if (jsonobject.getString("ID").equals(user.getName())){
                             user.setScore(score);
                             user.setId(jsonobject.getString("ID"));
                             user.setTeamID(team);
