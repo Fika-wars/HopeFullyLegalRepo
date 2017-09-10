@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void updateHeading(@NonNull Heading heading) {
-        //mapView.setHeading(heading);
+        mapView.setHeading(heading);
     }
 
     private void updateLocation(@NonNull Location location) {
