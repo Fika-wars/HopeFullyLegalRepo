@@ -58,6 +58,7 @@ public class MyJsonRequest {
         postParam.put("operator", "userUpdate");
         postParam.put("userName", user.getName());
         postParam.put("region", user.getZone());
+        postParam.put("team", user.getTeam());
 
         JSONObject jsonBody = new JSONObject(postParam);
 

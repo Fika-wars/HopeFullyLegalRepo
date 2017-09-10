@@ -168,6 +168,33 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+/*
+    //Spoof starts
+    private void spoof(String Zone, boolean start){
+        mUser.setZone(Zone);
+
+    if(start) {
+        mTimer = new Timer();
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mJsonRequest.makeRequest(mUser);
+                    }
+                });
+            }
+        }, 0, 3000);
+    }
+    else{
+        if (mTimer != null){
+            mTimer.cancel();
+        }
+    }
+    };
+    //Spoof ends
+*/
 
     private void updateHeading(@NonNull Heading heading) {
         mapView.setHeading(heading);
@@ -233,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
             if (isDestroyed()) return;
 
             onAttachedToSdk(sdk);
+
         }
     };
 }
