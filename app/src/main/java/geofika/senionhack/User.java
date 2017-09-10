@@ -11,6 +11,7 @@ public class User implements Serializable{
 
     private String mName = "";
     private String mZone = "";
+    private int score;
 
     User(String name){
         this.mName =  name;
@@ -26,5 +27,9 @@ public class User implements Serializable{
 
     public String getName() {
         return mName;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }
