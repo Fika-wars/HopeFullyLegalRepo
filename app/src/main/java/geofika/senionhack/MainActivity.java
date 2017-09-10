@@ -197,7 +197,8 @@ public class MainActivity extends AppCompatActivity {
                     myTeamScore));
 
             teamTextView.setText(String.format("Leader Team: %s, score: %d", highScoreTeam, highestValue));
-
+            mapView.setHighscoreTeam(highScoreTeam);
+            mapView.setUserTeam(mUser.getTeamID());
         }
     }
 

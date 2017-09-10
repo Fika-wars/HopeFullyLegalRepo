@@ -3,6 +3,7 @@ package com.senion.examples.simplemapview;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -36,6 +37,8 @@ public class MapView extends FrameLayout {
     private Button compassButton;
 
     private ArrayList<MapViewListener> listeners = new ArrayList<>();
+    private String highscoreTeam;
+    private String userTeam;
 
     public MapView(Context context) {
         super(context);
@@ -145,6 +148,7 @@ public class MapView extends FrameLayout {
         }
 
         currentImage = building.getBitmap(currentFloorId, 800, 800);
+        //currentImage =
 
         //mapImageView.setSampleScale(currentImage.getSampleSize());
         mapImageView.setPixelsPerMeter(((float)floorInfo.getPixelsPerMeter()));
@@ -266,6 +270,14 @@ public class MapView extends FrameLayout {
                 followModeButton.setBackgroundResource(R.drawable.map_cent_rot_button);
                 break;
         }
+    }
+
+    public void setHighscoreTeam(String highscoreTeam) {
+        this.highscoreTeam = highscoreTeam;
+    }
+
+    public void setUserTeam(String userTeam) {
+        this.userTeam = userTeam;
     }
 
     public interface MapViewListener {
