@@ -19,18 +19,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MyMockPositioningProvider implements MockPositioningProvider {
+public class MyMockPositioningProvider1 implements MockPositioningProvider {
 
     private int currentIndex = 0;
     private List<MockPositioningEvent> mockPositioningEvents = new ArrayList<>();
-    private long mockLocationIntervalMs = 800;
+    private long mockLocationIntervalMs = 5000;
     private long mockHeadingIntervalMs = 300;
     private LocationSource mockLocationSource = new MyLocationSource();
 
     /**
      * @param buildingInfo
      */
-    public MyMockPositioningProvider(BuildingInfo buildingInfo) {
+    public MyMockPositioningProvider1(BuildingInfo buildingInfo) {
         this.mockPositioningEvents = createMockPositioningEvents(buildingInfo);
     }
 

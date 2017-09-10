@@ -30,7 +30,7 @@ public class SimpleMapExampleApplication extends MultiDexApplication {
         }
 
        /* MockPositioningProvider mockLocationProvider =
-                new MyMockPositioningProvider(buildingInfo); */
+                new MyMockPositioningProvider1(buildingInfo); */
 
         stepInsideSdkManager = new StepInsideSdkManager.Builder(getApplicationContext())
                 .withApiKey(apiKey)
