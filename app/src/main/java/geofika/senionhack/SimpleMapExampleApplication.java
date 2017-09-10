@@ -38,7 +38,7 @@ public class SimpleMapExampleApplication extends MultiDexApplication {
         stepInsideSdkManager = new StepInsideSdkManager.Builder(getApplicationContext())
                 .withApiKey(apiKey)
                 .withMapKey(mapKey)
-                .withMockPositioningProvider(mockLocationProvider2) //Choose mock dataset here
+                .withMockPositioningProvider(mockLocationProvider1) //Choose mock dataset here
                 .enableGeoMessenger()
                 .withLogLevel(Log.VERBOSE)
                 .build();

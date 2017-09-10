@@ -3,6 +3,7 @@ package com.senion.examples.simplemapview;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -144,9 +145,23 @@ public class MapView extends FrameLayout {
             currentImage.recycle();
         }
 
-        currentImage = building.getBitmap(currentFloorId, 800, 800);
 
-        //mapImageView.setSampleScale(currentImage.getSampleSize());
+        String team = "red";
+        if(team.equals("red")) {
+            currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.redteam);
+        }
+        else if (team.equals("blue")){
+            currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.blueteam);
+        }
+        else if (team.equals("green")){
+            currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.greenteam);
+        }
+        else{
+            currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.noteam);
+        }
+
+
+        currentImage = Bitmap.createScaledBitmap(currentImage, 1500, 703, false);
         mapImageView.setPixelsPerMeter(((float)floorInfo.getPixelsPerMeter()));
         mapImageView.setImageBitmap(currentImage);
 
