@@ -146,7 +146,7 @@ public class MapView extends FrameLayout {
         }
 
 
-        String team = "red";
+        String team = "green";
         if(team.equals("red")) {
             currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.redteam);
         }
