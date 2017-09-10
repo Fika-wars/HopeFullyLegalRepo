@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private StepInsideSdkManager sdkManager;
     private StepInsideSdkHandle stepInsideSdk;
+    private boolean mock = false;
 
     //Create text classes to write
     /*private TextView latitudeTextView;
@@ -52,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
 
-        mUser = (User)bundle.getSerializable("User");
+        mUser = (User) bundle.getSerializable("User");
 
-        mJsonRequest = new MyJsonRequest(this,(String)bundle.get("Url"));
+        mJsonRequest = new MyJsonRequest(this, (String) bundle.get("Url"));
 
-        mapView = (MapView)findViewById(R.id.map_view);
+        mapView = (MapView) findViewById(R.id.map_view);
 
         try {
             mapView.setBuilding(BuildingInfo.read(this, getAssets().open(SimpleMapExampleApplication.buildingInfoAssetName)));
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         longitudeTextView = (TextView)findViewById(R.id.longitudeTextView);
         headingTextView = (TextView)findViewById(R.id.headingTextView);*/
 
-        sdkManager = ((SimpleMapExampleApplication)getApplication()).getStepInsideSdkManager();
+        sdkManager = ((SimpleMapExampleApplication) getApplication()).getStepInsideSdkManager();
 
         requestLocationPermission();
     }
@@ -122,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Timer mTimer;
     private String TAG = "MainActivity";
-    private GeoMessengerApi.Listener geoMessengerListener = new GeoMessengerApi.Listener()
-    {
+    private GeoMessengerApi.Listener geoMessengerListener = new GeoMessengerApi.Listener() {
         @Override
         public void onZoneEntered(@NonNull GeoMessengerZone zone) {
             String zoneText = String.format("Entered zone %s", zone.getName());
@@ -146,8 +146,6 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
             }, 0, 3000);
-            
-
 
 
             List<GeoMessengerMessage> L = zone.getMessages();
@@ -162,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             String zoneText = String.format("Exited zone %s", zone.getName());
             Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_LONG).show();
 
-            if (mTimer != null){
+            if (mTimer != null) {
                 mTimer.cancel();
             }
         }
@@ -170,29 +168,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Spoof starts
-    private void spoof(String Zone, boolean start){
+    private void spoof(String Zone, boolean start) {
         mUser.setZone(Zone);
 
-    if(start) {
-        mTimer = new Timer();
-        mTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mJsonRequest.makeRequest(mUser);
-                    }
-                });
+        if (start) {
+            mTimer = new Timer();
+            mTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mJsonRequest.makeRequest(mUser);
+                        }
+                    });
+                }
+            }, 0, 3000);
+        } else {
+            if (mTimer != null) {
+                mTimer.cancel();
             }
-        }, 0, 3000);
-    }
-    else{
-        if (mTimer != null){
-            mTimer.cancel();
         }
     }
-    };
+
+    ;
     //Spoof ends
 
     private void updateHeading(@NonNull Heading heading) {
@@ -200,19 +199,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean run = true;
+
     private void updateLocation(@NonNull Location location) {
         mapView.setLocation(location);
+        if (mock) {
+            if ((mapView.x_pos >= 700 && mapView.x_pos <= 900) && (mapView.y_pos >= 250 && mapView.y_pos <= 400) && run) {
 
-        if(( mapView.x_pos >= 700 && mapView.x_pos <= 900) && (mapView.y_pos >= 250 && mapView.y_pos <= 400) && run){
-            spoof("FikaRum", true);
-            run = false;
-        }
-        else if(( mapView.x_pos >= 700 && mapView.x_pos <= 900) && (mapView.y_pos >= 250 && mapView.y_pos <= 400)){
-            //
-        }
-        else{
-            run = true;
-            spoof("None", false);
+                spoof("FikaRum", true);
+                run = false;
+            } else if ((mapView.x_pos >= 700 && mapView.x_pos <= 900) && (mapView.y_pos >= 250 && mapView.y_pos <= 400)) {
+                //
+            } else {
+                run = true;
+                spoof("None", false);
+            }
         }
     }
 
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.ACCESS_FINE_LOCATION }, 0);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
     }
 
