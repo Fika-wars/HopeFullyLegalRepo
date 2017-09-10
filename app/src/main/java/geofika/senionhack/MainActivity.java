@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.senion.examples.simplemapview.MapView;
@@ -18,6 +19,7 @@ import com.senion.stepinside.sdk.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
     private MyJsonRequest mJsonRequest = null;
 
     private MapView mapView;
+    private Integer highestValue = 0;
+    private String highScoreTeam = "";
+    private TextView scoreTextView;
+    private TextView teamTextView;
+    private Integer highScoreTeamScore;
+    private Integer myTeamScore;
 
 
     @Override
@@ -65,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "Error while loading BuildingInfo", e);
         }
 
+        scoreTextView = (TextView)findViewById(R.id.score);
+        teamTextView = (TextView)findViewById(R.id.team);
         /*latitudeTextView = (TextView)findViewById(R.id.latitudeTextView);
         longitudeTextView = (TextView)findViewById(R.id.longitudeTextView);
         headingTextView = (TextView)findViewById(R.id.headingTextView);*/
@@ -72,6 +82,23 @@ public class MainActivity extends AppCompatActivity {
         sdkManager = ((SimpleMapExampleApplication) getApplication()).getStepInsideSdkManager();
 
         requestLocationPermission();
+
+        mTimer = new Timer();
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mJsonRequest.makeRequest(mUser);
+
+                        teamMap = mJsonRequest.getTeamList();
+                        updateHighscore();
+                        Log.d(TAG, "onZoneEntered: " + teamMap);
+                    }
+                });
+            }
+        }, 0, 3000);
     }
 
     @Override
@@ -123,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Timer mTimer;
     private String TAG = "MainActivity";
+    private HashMap<String, Integer> teamMap = null;
     private GeoMessengerApi.Listener geoMessengerListener = new GeoMessengerApi.Listener() {
         @Override
         public void onZoneEntered(@NonNull GeoMessengerZone zone) {
@@ -130,23 +158,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_LONG).show();
 
             mUser.setZone(zone.getId());
-
-            mTimer = new Timer();
-            mTimer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mJsonRequest.makeRequest(mUser);
-
-                            HashMap<String, Integer> newList = mJsonRequest.getTeamList();
-                            Log.d(TAG, "onZoneEntered: " + newList);
-                        }
-                    });
-                }
-            }, 0, 3000);
-
 
             List<GeoMessengerMessage> L = zone.getMessages();
             if (L.size() > 0) {
@@ -159,35 +170,42 @@ public class MainActivity extends AppCompatActivity {
         public void onZoneExited(@NonNull GeoMessengerZone zone) {
             String zoneText = String.format("Exited zone %s", zone.getName());
             Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_LONG).show();
-
-            if (mTimer != null) {
-                mTimer.cancel();
-            }
+            mUser.setZone("None");
         }
     };
+
+
+    private void updateHighscore() {
+        Log.d(TAG, "updateHighscore: ");
+        if (teamMap != null) {
+            mUser = mJsonRequest.getUser();
+
+            for (Map.Entry<String, Integer> entry : teamMap.entrySet()) {
+
+                if (entry.getKey().equals(mUser.getTeamID())){
+                    myTeamScore = entry.getValue();
+                }
+                if (entry.getValue() > highestValue) {
+                        highScoreTeam = entry.getKey();
+                        highestValue = entry.getValue();
+                }
+            }
+            scoreTextView.setText(String.format("User: %s, Score: %d, Team: %s, TeamScore: %d",
+                    mUser.getName(),
+                    mUser.getScore(),
+                    mUser.getTeamID(),
+                    myTeamScore));
+
+            teamTextView.setText(String.format("Leader Team: %s, score: %d", highScoreTeam, highestValue));
+
+        }
+    }
+
 
 
     //Spoof starts
     private void spoof(String Zone, boolean start) {
         mUser.setZone(Zone);
-        if (start) {
-            mTimer = new Timer();
-            mTimer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mJsonRequest.makeRequest(mUser);
-                        }
-                    });
-                }
-            }, 0, 3000);
-        } else {
-            if (mTimer != null) {
-                mTimer.cancel();
-            }
-        }
     }
 
     ;
