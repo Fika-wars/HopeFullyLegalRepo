@@ -37,6 +37,8 @@ public class MapView extends FrameLayout {
     private Button compassButton;
 
     private ArrayList<MapViewListener> listeners = new ArrayList<>();
+    private String highscoreTeam = "";
+    private String userTeam;
 
     public MapView(Context context) {
         super(context);
@@ -146,14 +148,13 @@ public class MapView extends FrameLayout {
         }
 
 
-        String team = "green";
-        if(team.equals("red")) {
+        if(highscoreTeam.equals("red")) {
             currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.redteam);
         }
-        else if (team.equals("blue")){
+        else if (highscoreTeam.equals("blue")){
             currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.blueteam);
         }
-        else if (team.equals("green")){
+        else if (highscoreTeam.equals("green")){
             currentImage = BitmapFactory.decodeResource(getResources(), R.drawable.greenteam);
         }
         else{
@@ -281,6 +282,14 @@ public class MapView extends FrameLayout {
                 followModeButton.setBackgroundResource(R.drawable.map_cent_rot_button);
                 break;
         }
+    }
+
+    public void setHighscoreTeam(String highscoreTeam) {
+        this.highscoreTeam = highscoreTeam;
+    }
+
+    public void setUserTeam(String userTeam) {
+        this.userTeam = userTeam;
     }
 
     public interface MapViewListener {
