@@ -62,7 +62,11 @@ public class MyJsonRequest {
         postParam.put("userName", user.getName());
         postParam.put("region", user.getZone());
 
+
+
         JSONObject jsonBody = new JSONObject(postParam);
+
+        Log.d(TAG, "makeRequest: json" + jsonBody);
 
         CustomRequest jsonObjReq = new CustomRequest(Request.Method.POST, mUrl, jsonBody, new Response.Listener<JSONArray>() {
             @Override

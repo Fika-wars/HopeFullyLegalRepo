@@ -11,10 +11,10 @@ import java.util.Random;
 public class User implements Serializable{
 
     private String mName = "";
-    private String mZone = "";
+    private String mZone = "None";
     private String mTeam = "";
     private String id = "";
-    private String teamID;
+    private String teamID = "";
 
     public int getScore() {
         return score;

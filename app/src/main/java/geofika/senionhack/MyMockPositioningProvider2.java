@@ -23,10 +23,13 @@ public class MyMockPositioningProvider2 implements MockPositioningProvider {
 
     private int currentIndex = 0;
     private List<MockPositioningEvent> mockPositioningEvents = new ArrayList<>();
-    private long mockLocktionInterval3  = 1000;
-    private long mockLocktionInterval2  = 1000;
-    private long mockLocktionInterval1  = 1000;
-    private long mockLocationIntervalMs = 800;
+
+    private long mockLocationIntervalMs = 1000;
+
+    private long mockLocktionInterval1  = 2000;
+    private long mockLocktionInterval2  = 5000;
+    private long mockLocktionInterval3  = 100000;
+
     private long mockHeadingIntervalMs = 300;
     private LocationSource mockLocationSource = new MyLocationSource();
 
@@ -71,17 +74,16 @@ public class MyMockPositioningProvider2 implements MockPositioningProvider {
         mockPositioningEvents.add(new MockLocationEvent(location1, mockLocationIntervalMs));
         //mockPositioningEvents.add(new MockHeadingEvent(heading1, mockHeadingIntervalMs));
         mockPositioningEvents.add(new MockLocationEvent(location2, mockLocationIntervalMs));
-        mockPositioningEvents.add(new MockLocationEvent(location3, mockLocktionInterval3));
+        mockPositioningEvents.add(new MockLocationEvent(location3, mockLocationIntervalMs));
 
-        //Kaffemaskin
         mockPositioningEvents.add(new MockLocationEvent(location4, mockLocationIntervalMs));
 
-        //Soffa
-        mockPositioningEvents.add(new MockLocationEvent(location5, mockLocktionInterval1));
-        mockPositioningEvents.add(new MockLocationEvent(location5, mockLocktionInterval2));
-        mockPositioningEvents.add(new MockLocationEvent(location6, mockLocktionInterval2));
-        mockPositioningEvents.add(new MockLocationEvent(location7, mockLocktionInterval2));
+        mockPositioningEvents.add(new MockLocationEvent(location5, mockLocationIntervalMs));
+        mockPositioningEvents.add(new MockLocationEvent(location6, mockLocktionInterval1));
+        mockPositioningEvents.add(new MockLocationEvent(location7, mockLocktionInterval1));
         mockPositioningEvents.add(new MockLocationEvent(location8, mockLocktionInterval2));
+        mockPositioningEvents.add(new MockLocationEvent(location8, mockLocktionInterval3));
+
 
 
         return mockPositioningEvents;
