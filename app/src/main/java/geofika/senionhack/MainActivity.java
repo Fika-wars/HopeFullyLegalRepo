@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateLocation(@NonNull Location location) {
         mapView.setLocation(location);
-        spoof("Fikarum",true);
+        //spoof("Fikarum",true);
     }
 
     private void updateLocationAvailability(LocationAvailability locationAvailability) {
