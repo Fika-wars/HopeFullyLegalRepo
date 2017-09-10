@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
+/*
     //Spoof starts
     private void spoof(String Zone, boolean start){
         mUser.setZone(Zone);
@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
     }
     };
     //Spoof ends
+*/
 
     private void updateHeading(@NonNull Heading heading) {
         mapView.setHeading(heading);
@@ -194,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateLocation(@NonNull Location location) {
         mapView.setLocation(location);
-        //spoof("Fikarum",true);
     }
 
     private void updateLocationAvailability(LocationAvailability locationAvailability) {
