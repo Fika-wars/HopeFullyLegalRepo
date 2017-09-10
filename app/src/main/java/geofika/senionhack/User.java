@@ -22,6 +22,7 @@ public class User implements Serializable{
         int pick = new Random().nextInt(Team.values().length);
         return Team.values()[pick];
     }
+    private int score;
 
     User(String name){
         this.mName = name;
@@ -43,4 +44,7 @@ public class User implements Serializable{
     }
 
     public String getTeam() { return  mTeam; }
+    public void setScore(Integer score) {
+        this.score = score;
+    }
 }

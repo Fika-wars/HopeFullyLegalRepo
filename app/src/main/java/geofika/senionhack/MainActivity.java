@@ -11,12 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-import android.widget.TextView;
 
 import com.senion.examples.simplemapview.MapView;
 import com.senion.examples.simplemapview.buildinginfo.BuildingInfo;
 import com.senion.stepinside.sdk.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private StepInsideSdkHandle stepInsideSdk;
 
     //Create text classes to write
-    private TextView latitudeTextView;
+    /*private TextView latitudeTextView;
     private TextView longitudeTextView;
-    private TextView headingTextView;
+    private TextView headingTextView;*/
 
     //Create geoMessenger
     private GeoMessengerApi geoMessengerApi;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Subscription statusSubscription;
 
     private User mUser = null;
-    private JsonRequest mJsonRequest = null;
+    private MyJsonRequest mJsonRequest = null;
 
     private MapView mapView;
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         mUser = (User)bundle.getSerializable("User");
 
-        mJsonRequest = new JsonRequest(this,(String)bundle.get("Url"));
+        mJsonRequest = new MyJsonRequest(this,(String)bundle.get("Url"));
 
         mapView = (MapView)findViewById(R.id.map_view);
 
@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "Error while loading BuildingInfo", e);
         }
 
-        latitudeTextView = (TextView)findViewById(R.id.latitudeTextView);
+        /*latitudeTextView = (TextView)findViewById(R.id.latitudeTextView);
         longitudeTextView = (TextView)findViewById(R.id.longitudeTextView);
-        headingTextView = (TextView)findViewById(R.id.headingTextView);
+        headingTextView = (TextView)findViewById(R.id.headingTextView);*/
 
         sdkManager = ((SimpleMapExampleApplication)getApplication()).getStepInsideSdkManager();
 
@@ -101,12 +101,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void updateHeadingTextView(@NonNull Heading heading) {
-        headingTextView.setText(String.format("Heading: %s", heading.getAngle()));
+        //headingTextView.setText(String.format("Heading: %s", heading.getAngle()));
     }
 
     private void updateLocationTextViews(@NonNull Location location) {
-        latitudeTextView.setText(String.format("Latitude: %s", location.getLatitude()));
-        longitudeTextView.setText(String.format("Longitude: %s", location.getLongitude()));
+        //latitudeTextView.setText(String.format("Latitude: %s", location.getLatitude()));
+        //longitudeTextView.setText(String.format("Longitude: %s", location.getLongitude()));
     }
 
     private void onAttachedToSdk(@NonNull StepInsideSdkHandle sdk) {
@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Timer mTimer;
+    private String TAG = "MainActivity";
     private GeoMessengerApi.Listener geoMessengerListener = new GeoMessengerApi.Listener()
     {
         @Override
@@ -139,16 +140,22 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             mJsonRequest.makeRequest(mUser);
+
+                            HashMap<String, Integer> newList = mJsonRequest.getTeamList();
+                            Log.d(TAG, "onZoneEntered: " + newList);
                         }
                     });
                 }
             }, 0, 3000);
             
-            
+
+
+
             List<GeoMessengerMessage> L = zone.getMessages();
-            String ZoneText = String.format("%s", L.get(0).getPayload());
-            Toast.makeText(MainActivity.this, ZoneText, Toast.LENGTH_LONG).show();
-            
+            if (L.size() > 0) {
+                String ZoneText = String.format("%s", L.get(0).getPayload());
+                Toast.makeText(MainActivity.this, ZoneText, Toast.LENGTH_LONG).show();
+            }
         }
 
         @Override
