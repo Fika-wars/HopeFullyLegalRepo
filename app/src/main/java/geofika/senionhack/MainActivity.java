@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private StepInsideSdkManager sdkManager;
     private StepInsideSdkHandle stepInsideSdk;
-    private boolean mock = false;
+    private boolean mock = true;
 
     //Create text classes to write
     /*private TextView latitudeTextView;
@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
     //Spoof starts
     private void spoof(String Zone, boolean start) {
         mUser.setZone(Zone);
-
         if (start) {
             mTimer = new Timer();
             mTimer.scheduleAtFixedRate(new TimerTask() {
@@ -204,7 +203,8 @@ public class MainActivity extends AppCompatActivity {
         mapView.setLocation(location);
         if (mock) {
             if ((mapView.x_pos >= 700 && mapView.x_pos <= 900) && (mapView.y_pos >= 250 && mapView.y_pos <= 400) && run) {
-
+                String zoneText = String.format("Entered zone %s", "FikaRum");
+                Toast.makeText(MainActivity.this, zoneText, Toast.LENGTH_LONG).show();
                 spoof("FikaRum", true);
                 run = false;
             } else if ((mapView.x_pos >= 700 && mapView.x_pos <= 900) && (mapView.y_pos >= 250 && mapView.y_pos <= 400)) {
