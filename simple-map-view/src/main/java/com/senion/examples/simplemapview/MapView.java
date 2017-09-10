@@ -19,6 +19,9 @@ import java.util.ArrayList;
 
 public class MapView extends FrameLayout {
 
+    public int x_pos;
+    public int y_pos;
+
     private MapImageView mapImageView;
     private Button floorUpButton;
     private Button floorDownButton;
@@ -235,6 +238,8 @@ public class MapView extends FrameLayout {
     public void setLocation(Location location) {
         FloorInfo floorInfo = building.getFloorInfo(currentFloorId);
         ImagePoint imagePoint = building.locationCoordinatesToImagePoint(location.getCoordinates());
+        x_pos = (int) imagePoint.getX();
+        y_pos = (int) imagePoint.getY();
         mapImageView.setPosition(imagePoint);
         mapImageView.setUncertaintyRadius(floorInfo.getPixelsPerMeter() * location.getUncertaintyRadius());
     }

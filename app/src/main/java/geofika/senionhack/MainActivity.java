@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     //Spoof starts
     private void spoof(String Zone, boolean start){
         mUser.setZone(Zone);
@@ -198,8 +199,21 @@ public class MainActivity extends AppCompatActivity {
         mapView.setHeading(heading);
     }
 
+    private boolean run = true;
     private void updateLocation(@NonNull Location location) {
         mapView.setLocation(location);
+
+        if(( mapView.x_pos >= 700 && mapView.x_pos <= 900) && (mapView.y_pos >= 250 && mapView.y_pos <= 400) && run){
+            spoof("FikaRum", true);
+            run = false;
+        }
+        else if(( mapView.x_pos >= 700 && mapView.x_pos <= 900) && (mapView.y_pos >= 250 && mapView.y_pos <= 400)){
+            //
+        }
+        else{
+            run = true;
+            spoof("None", false);
+        }
     }
 
     private void updateLocationAvailability(LocationAvailability locationAvailability) {

@@ -23,7 +23,7 @@ public class MyMockPositioningProvider1 implements MockPositioningProvider {
 
     private int currentIndex = 0;
     private List<MockPositioningEvent> mockPositioningEvents = new ArrayList<>();
-    private long mockLocationIntervalMs = 800;
+    private long mockLocationIntervalMs = 2000;
     private long mockLocktionInterval3  = 7000;
     private long mockLocktionInterval2  = 300000;
     private long mockLocktionInterval1  = 4000;
